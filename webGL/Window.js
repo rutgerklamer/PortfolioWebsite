@@ -17,6 +17,7 @@ var camera;
 
 function main() {
     camera = new Camera();
+
     document.onkeydown = handleKeyDown;
     document.onkeyup = handleKeyUp;
 
@@ -32,6 +33,8 @@ function main() {
     if (!gl) {
         alert('WebGl is not supported, Try a different browser.');
     }
+
+
 
     gl.clearColor(0.3, 0.3, 0.1, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -71,7 +74,22 @@ function main() {
     gl.uniformMatrix4fv(matViewUniformLocation, gl.FALSE, viewMatrix);
     gl.uniformMatrix4fv(matProjUniformLocation, gl.FALSE, projMatrix);
 
+    document.getElementsByTagName("canvas")[0].addEventListener("click", function() {
+      this.requestPointerLock();
+    }, false);
+
+    document.getElementsByTagName("canvas")[0].addEventListener("mousemove", function(e) {
+      camera.ProcessMouseMovement(e);
+    }, false);
+
     requestAnimationFrame(loop);
+
+
+}
+
+function errorCallback(error)
+{
+console.log(error);
 }
 
 function loop(timestamp) {
@@ -92,7 +110,7 @@ function loop(timestamp) {
 
         console.log("Your current fps is : " + fps / 10);
     }
-    gl.clearColor(0.3, 0.3, 0.1, 1.0);
+    gl.clearColor(0.45, 0.87, 0.42, 1.0);
     gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
     camera.ProcessKeys();
     var matViewUniformLocation = gl.getUniformLocation(program, 'mView');
@@ -101,9 +119,6 @@ function loop(timestamp) {
     viewMatrix = camera.GetViewMatrix();
 
     gl.uniformMatrix4fv(matViewUniformLocation, gl.FALSE, viewMatrix);
-
-
-
 
     for (i = 0; i < meshes.length; i++) {
         Render(meshes[i]);

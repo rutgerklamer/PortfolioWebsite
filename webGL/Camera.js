@@ -9,9 +9,6 @@ function Camera() {
     this.yaw = 1;;
     this.pitch = 1;;
 
-    this.lastX = 1;
-    this.lastY = 1;
-
     this.Update = function() {
         var frontTemp = vec3.create();
         frontTemp[0] = Math.cos(this.yaw * (Math.PI / 180)) * Math.cos((this.pitch * (Math.PI / 180)));
@@ -31,15 +28,13 @@ function Camera() {
         return mat4.lookAt(viewMatrix, this.position, frontPos, [0, 1, 0]);
     }
     this.ProcessMouseMovement = function(event) {
-        var xOffset = this.lastX - event.clientX;
-        this.lastX = event.clientX;
-        var yOffset = this.lastY - event.clientY;
-        this.lastY = event.clientY;
+        var xOffset = event.movementX;
+        var yOffset =  event.movementY;
         xOffset *= 0.05;
         yOffset *= 0.05;
-        this.yaw -= xOffset;
-        this.pitch += yOffset;
-
+        this.yaw += xOffset;
+        this.pitch -= yOffset;
+        
         if (this.pitch >= 89.0) {
             this.pitch = 89.0;
         } else if (this.pitch <= -89.0) {
@@ -60,7 +55,6 @@ function Camera() {
         }
         if (keys["KeyD"]) {
             vec3.add(this.position, this.position, this.right);
-            console.log(this.position);
         }
     }
 }
