@@ -34,7 +34,7 @@ function Camera() {
         yOffset *= 0.05;
         this.yaw += xOffset;
         this.pitch -= yOffset;
-        
+
         if (this.pitch >= 89.0) {
             this.pitch = 89.0;
         } else if (this.pitch <= -89.0) {

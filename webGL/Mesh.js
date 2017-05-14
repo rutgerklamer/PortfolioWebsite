@@ -8,7 +8,6 @@ function Mesh() {
     this.position = position;
 
     this.CreateMesh = function() {
-        console.log("lol");
         boxVertices = [ // X, Y, Z           U, V
             // Top
             -1.0, 1.0, -1.0, 0, 0, -1.0, 1.0, 1.0, 0, 1,
@@ -26,7 +25,9 @@ function Mesh() {
 
             // Front
             1.0, 1.0, 1.0, 1, 1,
-            1.0, -1.0, 1.0, 1, 0, -1.0, -1.0, 1.0, 0, 0, -1.0, 1.0, 1.0, 0, 1,
+            1.0, -1.0, 1.0, 1, 0,
+            -1.0, -1.0, 1.0, 0, 0,
+            -1.0, 1.0, 1.0, 0, 1,
 
             // Back
             1.0, 1.0, -1.0, 0, 0,
@@ -36,7 +37,7 @@ function Mesh() {
             -1.0, -1.0, -1.0, 1, 1, -1.0, -1.0, 1.0, 1, 0,
             1.0, -1.0, 1.0, 0, 0,
             1.0, -1.0, -1.0, 0, 1,
-        ];
+        ] ;
 
         boxIndices = [
             // Top
@@ -73,8 +74,8 @@ function Mesh() {
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IBO);
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.boxIndices), gl.STATIC_DRAW);
 
-        var positionAttribLocation = gl.getAttribLocation(program, 'vertPosition');
-        var texCoordAttribLocation = gl.getAttribLocation(program, 'vertTexCoord');
+        var positionAttribLocation = gl.getAttribLocation(shader3D.program, 'vertPosition');
+        var texCoordAttribLocation = gl.getAttribLocation(shader3D.program, 'vertTexCoord');
         gl.vertexAttribPointer(
             positionAttribLocation, // Attribute location
             3, // Number of elements per attribute

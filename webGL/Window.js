@@ -13,7 +13,9 @@ var firstBox;
 var firstBox2;
 
 var meshes = new Array();
+var shader3D;
 var camera;
+var skybox;
 
 function main() {
     camera = new Camera();
@@ -34,8 +36,6 @@ function main() {
         alert('WebGl is not supported, Try a different browser.');
     }
 
-
-
     gl.clearColor(0.3, 0.3, 0.1, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.enable(gl.DEPTH_TEST);
@@ -43,36 +43,23 @@ function main() {
     gl.frontFace(gl.CCW);
     gl.cullFace(gl.BACK);
 
-    CreateShader();
+    shader3D = new Shader("Shaders/vertex3D.shader", "Shaders/fragment3D.shader");
+
     for (var i = 0; i < 10; i++) {
         meshes[i] = new Mesh();
         meshes[i].CreateMesh();
         meshes[i].position[0] = Rand() * 5;
         meshes[i].position[1] = Rand() * 5;
         meshes[i].position[2] = Rand() * 5;
-
     }
+
+    skybox = new Mesh();
+    skybox.CreateMesh();
+
     CreateTexture();
+    CreateSkybox();
+    shader3D.Use();
 
-    gl.useProgram(program);
-
-    var matWorldUniformLocation = gl.getUniformLocation(program, 'mWorld');
-    var matViewUniformLocation = gl.getUniformLocation(program, 'mView');
-    var matProjUniformLocation = gl.getUniformLocation(program, 'mProj');
-
-    var worldMatrix = new Float32Array(16);
-    var viewMatrix = new Float32Array(16);
-    var projMatrix = new Float32Array(16);
-    mat4.identity(worldMatrix);
-
-    mat4.perspective(projMatrix, glMatrix.toRadian(45), canvas.width / canvas.height, 0.1, 1000.0);
-
-    viewMatrix = camera.GetViewMatrix();
-    console.log(viewMatrix);
-
-    gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
-    gl.uniformMatrix4fv(matViewUniformLocation, gl.FALSE, viewMatrix);
-    gl.uniformMatrix4fv(matProjUniformLocation, gl.FALSE, projMatrix);
 
     document.getElementsByTagName("canvas")[0].addEventListener("click", function() {
       this.requestPointerLock();
@@ -113,15 +100,18 @@ function loop(timestamp) {
     gl.clearColor(0.45, 0.87, 0.42, 1.0);
     gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
     camera.ProcessKeys();
-    var matViewUniformLocation = gl.getUniformLocation(program, 'mView');
+    shader3D.Use();
+
+    var matViewUniformLocation = gl.getUniformLocation(shader3D.program, 'mView');
     var viewMatrix = new Float32Array(16);
-
     viewMatrix = camera.GetViewMatrix();
-
     gl.uniformMatrix4fv(matViewUniformLocation, gl.FALSE, viewMatrix);
+    gl.disable(gl.CULL_FACE);
+    skybox.position = camera.position;
+    RenderSkybox(skybox, shader3D);
 
     for (i = 0; i < meshes.length; i++) {
-        Render(meshes[i]);
+        Render(meshes[i], shader3D);
     }
 
     requestAnimationFrame(loop);
