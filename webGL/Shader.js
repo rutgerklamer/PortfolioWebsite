@@ -1,42 +1,18 @@
-var vertexShaderText = [
-    'precision mediump float;',
-    '',
-    'attribute vec3 vertPosition;',
-    'attribute vec2 vertTexCoord;',
-    'varying vec2 fragTexCoord;',
-    'uniform mat4 mWorld;',
-    'uniform mat4 mView;',
-    'uniform mat4 mProj;',
-    '',
-    'void main()',
-    '{',
-    '  fragTexCoord = vertTexCoord;',
-    '  gl_Position = mProj * mView * mWorld * vec4(vertPosition, 1.0);',
-    '}'
-].join('\n');
-
-var fragmentShaderText = [
-    'precision mediump float;',
-    '',
-    'varying vec2 fragTexCoord;',
-    'uniform sampler2D sampler;',
-    '',
-    'void main()',
-    '{',
-    'vec4 color = texture2D(sampler, fragTexCoord);',
-    'if (color.a < 0.1) { discard; }',
-    '  gl_FragColor = color;',
-    '}'
-].join('\n');
-
 var program;
+
+function LoadShaderFile(url, callback) {
+  var request = new XMLHttpRequest();
+  request.open("GET", url, false);
+  request.send(null);
+  shader = request.responseText;
+  return shader;
+}
 
 function CreateShader() {
     var vertexShader = gl.createShader(gl.VERTEX_SHADER);
     var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-
-    gl.shaderSource(vertexShader, vertexShaderText);
-    gl.shaderSource(fragmentShader, fragmentShaderText);
+    gl.shaderSource(vertexShader, LoadShaderFile("Shaders/vertex3D.shader"));
+    gl.shaderSource(fragmentShader, LoadShaderFile("Shaders/fragment3D.shader"));
 
     gl.compileShader(vertexShader);
     if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
