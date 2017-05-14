@@ -15,7 +15,6 @@ var firstBox2;
 var meshes = new Array();
 var shader3D;
 var camera;
-var skybox;
 
 function main() {
     camera = new Camera();
@@ -53,30 +52,23 @@ function main() {
         meshes[i].position[2] = Rand() * 5;
     }
 
-    skybox = new Mesh();
-    skybox.CreateMesh();
-
     CreateTexture();
     CreateSkybox();
     shader3D.Use();
 
-
     document.getElementsByTagName("canvas")[0].addEventListener("click", function() {
-      this.requestPointerLock();
+        this.requestPointerLock();
     }, false);
 
     document.getElementsByTagName("canvas")[0].addEventListener("mousemove", function(e) {
-      camera.ProcessMouseMovement(e);
+        camera.ProcessMouseMovement(e);
     }, false);
 
     requestAnimationFrame(loop);
-
-
 }
 
-function errorCallback(error)
-{
-console.log(error);
+function errorCallback(error) {
+    console.log(error);
 }
 
 function loop(timestamp) {
@@ -106,14 +98,9 @@ function loop(timestamp) {
     var viewMatrix = new Float32Array(16);
     viewMatrix = camera.GetViewMatrix();
     gl.uniformMatrix4fv(matViewUniformLocation, gl.FALSE, viewMatrix);
-    gl.disable(gl.CULL_FACE);
-    skybox.position = camera.position;
-    RenderSkybox(skybox, shader3D);
 
     for (i = 0; i < meshes.length; i++) {
         Render(meshes[i], shader3D);
     }
-
     requestAnimationFrame(loop);
-
 };

@@ -1,5 +1,4 @@
 function HUDMesh() {
-
     var boxVertices;
     var boxIndices;
 
@@ -8,13 +7,16 @@ function HUDMesh() {
     this.position = position;
 
     this.CreateMesh = function() {
-        boxVertices = [ 1.0, 1.0, 0.0, 1, 1,
-                        1.0, -1.0, 0.0, 1, 0,
-                        -1.0, -1.0, 0.0, 0, 0,
-                        -1.0, 1.0, 0.0, 0, 1,];
+        boxVertices = [1.0, 1.0, 0.0, 1, 1,
+                      1.0, -1.0, 0.0, 1, 0,
+                      -1.0, -1.0, 0.0, 0, 0,
+                      -1.0, 1.0, 0.0, 0, 1,
+        ];
 
-        boxIndices = [ 1,0,2, // first triangle (bottom left - top left - top right)
-                     3,2,0 ];
+        boxIndices = [1, 0, 2,
+                      3, 2, 0
+        ];
+
         this.boxIndices = boxIndices;
 
         var VBO = gl.createBuffer();
@@ -27,26 +29,12 @@ function HUDMesh() {
 
         var positionAttribLocation = gl.getAttribLocation(shader2D.program, 'vertPosition');
         var texCoordAttribLocation = gl.getAttribLocation(shader2D.program, 'vertTexCoord');
-        gl.vertexAttribPointer(
-            positionAttribLocation, // Attribute location
-            3, // Number of elements per attribute
-            gl.FLOAT, // Type of elements
-            gl.FALSE,
-            5 * Float32Array.BYTES_PER_ELEMENT, // Size of an individual vertex
-            0 // Offset from the beginning of a single vertex to this attribute
-        );
-        gl.vertexAttribPointer(
-            texCoordAttribLocation, // Attribute location
-            2, // Number of elements per attribute
-            gl.FLOAT, // Type of elements
-            gl.FALSE,
-            5 * Float32Array.BYTES_PER_ELEMENT, // Size of an individual vertex
-            3 * Float32Array.BYTES_PER_ELEMENT // Offset from the beginning of a single vertex to this attribute
-        );
+        gl.vertexAttribPointer(positionAttribLocation, 3, gl.FLOAT, gl.FALSE, 5 * Float32Array.BYTES_PER_ELEMENT, 0);
+
+        gl.vertexAttribPointer( texCoordAttribLocation, 2, gl.FLOAT, gl.FALSE, 5 * Float32Array.BYTES_PER_ELEMENT, 3 * Float32Array.BYTES_PER_ELEMENT);
 
         gl.enableVertexAttribArray(positionAttribLocation);
         gl.enableVertexAttribArray(texCoordAttribLocation);
-
     }
 
     this.Update = function() {

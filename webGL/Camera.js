@@ -29,7 +29,7 @@ function Camera() {
     }
     this.ProcessMouseMovement = function(event) {
         var xOffset = event.movementX;
-        var yOffset =  event.movementY;
+        var yOffset = event.movementY;
         xOffset *= 0.05;
         yOffset *= 0.05;
         this.yaw += xOffset;
