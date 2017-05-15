@@ -32,7 +32,7 @@ function Render(mesh, shader) {
 
     mesh.Update();
 
-    gl.bindTexture(gl.TEXTURE_2D, boxTexture);
+    gl.bindTexture(gl.TEXTURE_2D, mesh.boxTexture);
     gl.activeTexture(gl.TEXTURE0);
     gl.drawElements(gl.TRIANGLES, mesh.boxIndices.length, gl.UNSIGNED_SHORT, 0);
 }

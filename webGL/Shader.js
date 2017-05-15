@@ -1,7 +1,7 @@
 function Shader(vertexPath, fragmentPath) {
     this.program;
 
-    this.LoadShaderFile = function(url, callback) {
+    this.LoadShaderFile = function(url) {
         var request = new XMLHttpRequest();
         request.open("GET", url, false);
         request.send(null);

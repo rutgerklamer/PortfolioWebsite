@@ -16,6 +16,7 @@ var meshes = new Array();
 var shader3D;
 var camera;
 
+var mesh;
 function main() {
     camera = new Camera();
 

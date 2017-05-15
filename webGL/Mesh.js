@@ -5,8 +5,10 @@ function Mesh() {
     var position = vec3.create();
 
     this.position = position;
+    this.boxTexture;
 
     this.CreateMesh = function() {
+      this.boxTexture = CreateTexture("crate-image");
         boxVertices = [
             -1.0, 1.0, -1.0, 0, 0,
             -1.0, 1.0, 1.0, 0, 1,
@@ -58,7 +60,7 @@ function Mesh() {
             21, 20, 22,
             22, 20, 23
         ];
-        
+
         this.boxIndices = boxIndices;
 
         var VBO = gl.createBuffer();
