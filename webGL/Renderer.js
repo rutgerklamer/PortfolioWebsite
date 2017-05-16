@@ -21,16 +21,10 @@ function Render(mesh, shader) {
     gl.uniformMatrix4fv(matViewUniformLocation, gl.FALSE, viewMatrix);
     gl.uniformMatrix4fv(matProjUniformLocation, gl.FALSE, projMatrix);
 
-    var worldMatrix = new Float32Array(16);
 
-    angle = 0;
-    mat4.rotate(yRotationMatrix, identityMatrix, angle, [0, 1 * dt, 0]);
-    mat4.rotate(xRotationMatrix, identityMatrix, angle / 4, [1, 0, 0]);
-    mat4.mul(worldMatrix, yRotationMatrix, xRotationMatrix);
-    mat4.translate(worldMatrix, worldMatrix, mesh.position);
-    gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
+    gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, mesh.worldMatrix);
 
-    mesh.Update();
+    mesh.Update(dt);
 
     gl.bindTexture(gl.TEXTURE_2D, mesh.boxTexture);
     gl.activeTexture(gl.TEXTURE0);

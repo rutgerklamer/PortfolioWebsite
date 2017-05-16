@@ -46,7 +46,7 @@ function main() {
     shader3D = new Shader("Shaders/vertex3D.shader", "Shaders/fragment3D.shader");
 
     for (var i = 0; i < 10; i++) {
-        meshes[i] = new Mesh();
+        meshes[i] = new Entity();
         meshes[i].CreateMesh();
         meshes[i].position[0] = Rand() * 5;
         meshes[i].position[1] = Rand() * 5;

@@ -4,7 +4,6 @@ function Mesh() {
 
     var position = vec3.create();
 
-    this.position = position;
     this.boxTexture;
 
     this.CreateMesh = function() {
