@@ -3,13 +3,12 @@ var Entity = function()
 {
   Mesh.call(this);
 
-  this.position;
   this.worldMatrix = new Float32Array(16);
+  this.position = vec3.create();
+  this.scale = vec3.create();
+  this.scale = [1,1,1];
   this.Update = function(dt)
   {
-    console.log(1 * dt);
-    this.position[1] -= 0.01;
-
     var angle = 0;
     var xRotationMatrix = new Float32Array(16);
     var yRotationMatrix = new Float32Array(16);
@@ -20,5 +19,6 @@ var Entity = function()
     mat4.rotate(yRotationMatrix, identityMatrix, angle / 4, [1, 0, 0]);
     mat4.mul(this.worldMatrix, yRotationMatrix, xRotationMatrix);
     mat4.translate(this.worldMatrix, this.worldMatrix, this.position);
+    mat4.scale(this.worldMatrix, this.worldMatrix, this.scale);
   }
 }
