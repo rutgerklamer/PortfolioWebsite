@@ -24,8 +24,8 @@ $(document).ready(function() {
         cursorwidth: "25px",
         cursorborder: "0px solid #fff",
         cursorborderradius: "0px",
-        scrollspeed: 80,
-        mousescrollstep: 75,
+        scrollspeed: 40,
+        mousescrollstep: 20,
         background: "#DE4053",
         railalign: "right",
         railvalign: "bottom",
@@ -44,21 +44,21 @@ $(document).ready(function() {
     $("#refOne").click(function() {
         $('html, body').animate({
             scrollTop: $("#one").offset().top
-        }, 1300);
+        }, 1800);
         return false;
     });
 
     $("#refTwo").click(function() {
         $('html, body').animate({
             scrollTop: $("#two").offset().top - $("#menu").height()
-        }, 1300);
+        }, 1800);
         return false;
     });
 
     $("#refThree").click(function() {
         $('html, body').animate({
             scrollTop: $("#contact").offset().top
-        }, 1300);
+        }, 1800);
         return false;
     });
 
