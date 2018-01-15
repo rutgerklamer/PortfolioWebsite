@@ -26,7 +26,7 @@ $(document).ready(function() {
         cursorborderradius: "0px",
         scrollspeed: 40,
         mousescrollstep: 20,
-        background: "#DE4053",
+        background: "#444444",
         railalign: "right",
         railvalign: "bottom",
         hidecursordelay: 750,

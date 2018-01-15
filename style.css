@@ -115,7 +115,7 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: #DE4053;
+    background-color: #444444;
     font-size: 37px;
     horizontal-align: center;
     transition-duration: .5s;
@@ -163,7 +163,7 @@ li a:hover {
 }
 
 .active {
-    color: #DE4053;
+    color: #444444;
 }
 
 .notActive {
@@ -184,7 +184,7 @@ h2 {
 
 h3 {
     font-size: 32px;
-    color: #DE4053;
+    color: #444444;
     font-weight: 400;
     margin-top: 20px;
     margin-bottom: 5px;
@@ -211,7 +211,7 @@ a {
 }
 
 #two h2 {
-    color: #DE4053;
+    color: #444444;
     font-family: 'Montserrat', sans-serif;
 }
 
